@@ -24,7 +24,7 @@ from docx.oxml import OxmlElement
 
 logger = logging.getLogger(__name__)
 
-FOOTER_ZONE_HEIGHT = 50  # pt from bottom edge
+FOOTER_ZONE_HEIGHT = 90  # pt wiped from bottom of each PDF page
 
 
 # ---------------------------------------------------------------------------
@@ -66,8 +66,9 @@ def add_footer_to_pdf(
             page.apply_redactions()
 
             # Shared vertical positioning within the cleared zone
-            top = pr.height - FOOTER_ZONE_HEIGHT + 18
-            bottom = pr.height - 10
+            # Stamp vertically centered in standard footer space (bottom 0.5 to 1 inch)
+            top = pr.height - 45
+            bottom = pr.height - 15
             margin = 30
 
             # --- Step 2: Left text (left-aligned) ---
@@ -144,44 +145,49 @@ def set_footer_in_docx(
         margin_r = section.right_margin or (1440  * EMU_PER_TWIP)
         text_width_twips = int((page_w - margin_l - margin_r) / EMU_PER_TWIP)
 
-        footer = section.footer
-        footer.is_linked_to_previous = False
+        # Word has 3 different footer types per section. Wipe and replace ALL of them.
+        for footer_attr in ['footer', 'first_page_footer', 'even_page_footer']:
+            footer = getattr(section, footer_attr, None)
+            if footer is None:
+                continue
 
-        # --- Clear all existing footer content ---
-        for para in footer.paragraphs:
-            para.clear()
-        for child in list(footer._element):
-            footer._element.remove(child)
+            footer.is_linked_to_previous = False
 
-        # --- Build new paragraph with 2 tab stops ---
-        para = footer.add_paragraph()
+            # --- Clear all existing footer content aggressively ---
+            for para in footer.paragraphs:
+                para.clear()
+            for child in list(footer._element):
+                footer._element.remove(child)
 
-        # Set tab stops via XML
-        pPr = para._p.get_or_add_pPr()
-        tabs_el = OxmlElement("w:tabs")
+            # --- Build new paragraph with 2 tab stops ---
+            para = footer.add_paragraph()
 
-        ctr = OxmlElement("w:tab")
-        ctr.set(qn("w:val"), "center")
-        ctr.set(qn("w:pos"), str(text_width_twips // 2))
-        tabs_el.append(ctr)
+            # Set tab stops via XML
+            pPr = para._p.get_or_add_pPr()
+            tabs_el = OxmlElement("w:tabs")
 
-        rgt = OxmlElement("w:tab")
-        rgt.set(qn("w:val"), "right")
-        rgt.set(qn("w:pos"), str(text_width_twips))
-        tabs_el.append(rgt)
+            ctr = OxmlElement("w:tab")
+            ctr.set(qn("w:val"), "center")
+            ctr.set(qn("w:pos"), str(text_width_twips // 2))
+            tabs_el.append(ctr)
 
-        pPr.append(tabs_el)
+            rgt = OxmlElement("w:tab")
+            rgt.set(qn("w:val"), "right")
+            rgt.set(qn("w:pos"), str(text_width_twips))
+            tabs_el.append(rgt)
 
-        # --- Fill in the three columns ---
-        def _add_run(text: str) -> None:
-            r = para.add_run(text)
-            r.font.size = Pt(9)
+            pPr.append(tabs_el)
 
-        _add_run(left_text or "")
-        _add_run("\t")
-        _add_run(center_text or "")
-        _add_run("\t")
-        _add_run(right_text or "")
+            # --- Fill in the three columns ---
+            def _add_run(text: str) -> None:
+                r = para.add_run(text)
+                r.font.size = Pt(9)
+
+            _add_run(left_text or "")
+            _add_run("\t")
+            _add_run(center_text or "")
+            _add_run("\t")
+            _add_run(right_text or "")
 
     document.save(docx_path)
     logger.info("DOCX footer set (%d sections): %s", len(document.sections), docx_path)
