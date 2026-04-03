@@ -6,4 +6,5 @@ uvicorn==0.29.0           # ASGI server to run FastAPI
 python-multipart==0.0.9   # Required by FastAPI for file uploads (Form / UploadFile)
 python-docx==1.1.2        # Read and write Word (.docx) documents
 PyMuPDF==1.25.5           # High-performance PDF manipulation (footer stamping)
+gunicorn==21.2.0          # Production ASGI process manager
 
