@@ -1,0 +1,821 @@
+/**
+ * Global stylesheet for Lazy Footers — Natural Paper Theme.
+ *
+ * Clean, warm paper aesthetic. Subtle, not gimmicky.
+ * Paper-like surfaces, soft shadows, natural colors.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   1. Design Tokens
+   ========================================================================== */
+
+:root {
+  --color-bg-body: #f2ede6;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #faf8f5;
+  --color-bg-muted: #f7f4f0;
+  --color-bg-warm: #faf6f1;
+
+  --color-border: #e0d8cf;
+  --color-border-light: #ebe5dc;
+  --color-border-focus: #7c6f5e;
+
+  --color-text-primary: #2c2520;
+  --color-text-secondary: #6b5e52;
+  --color-text-muted: #9a8e82;
+
+  --color-accent: #6b5038;
+  --color-accent-hover: #8a6a4f;
+  --color-accent-bg: #f5efe8;
+
+  --color-success: #4a7c59;
+  --color-success-bg: #eef5f0;
+  --color-success-border: #c4dcc9;
+
+  --color-error: #a0413c;
+  --color-error-bg: #fdf0ef;
+  --color-error-border: #e4c4c2;
+
+  --color-warning: #8a6a2a;
+  --color-warning-bg: #fdf8ef;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+
+  --shadow-sm: 0 1px 3px rgba(44, 37, 32, 0.06);
+  --shadow-md: 0 2px 8px rgba(44, 37, 32, 0.08), 0 1px 2px rgba(44, 37, 32, 0.04);
+  --shadow-lg: 0 4px 16px rgba(44, 37, 32, 0.1), 0 2px 4px rgba(44, 37, 32, 0.05);
+}
+
+/* ==========================================================================
+   2. Base
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg-body);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   3. Page Layout
+   ========================================================================== */
+
+.page-container {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.page-logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+}
+
+.page-tagline {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 0.35rem;
+}
+
+.page-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.page-submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-submit-button:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.page-submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.page-submit-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-submit-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.page-reset-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.7rem 1.5rem;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.page-reset-button:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-card);
+  border-color: var(--color-border-focus);
+}
+
+/* ==========================================================================
+   4. FileUploader
+   ========================================================================== */
+
+.file-uploader-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.file-uploader-dropzone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background: var(--color-bg-card);
+}
+
+.file-uploader-dropzone:hover {
+  border-color: var(--color-text-muted);
+  background: var(--color-bg-warm);
+  box-shadow: var(--shadow-sm);
+}
+
+.file-uploader-dragover {
+  border-color: var(--color-accent) !important;
+  background: var(--color-accent-bg) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.file-uploader-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.file-uploader-hidden-input {
+  display: none;
+}
+
+.file-uploader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.file-uploader-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.file-uploader-text-main {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.file-uploader-text-sub {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.file-uploader-browse-link {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.file-uploader-text-hint {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+.file-uploader-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-md);
+  color: var(--color-error);
+  font-size: 0.83rem;
+  line-height: 1.4;
+}
+
+.file-uploader-error-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ==========================================================================
+   5. FileList
+   ========================================================================== */
+
+.file-list-container {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.file-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg-muted);
+}
+
+.file-list-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.file-list-count {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-body);
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.file-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background var(--transition-fast);
+}
+
+.file-list-item:last-child {
+  border-bottom: none;
+}
+
+.file-list-item:hover {
+  background: var(--color-bg-warm);
+}
+
+.file-list-item-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.file-list-item-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.file-list-item-name {
+  font-size: 0.84rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.file-list-item-size {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-right: 0.75rem;
+}
+
+.file-list-remove-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.file-list-remove-button:hover:not(:disabled) {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+  border-color: var(--color-error-border);
+}
+
+.file-list-remove-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.file-list-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--color-border-light);
+  background: var(--color-bg-muted);
+  font-size: 0.78rem;
+}
+
+.file-list-total-label {
+  color: var(--color-text-muted);
+}
+
+.file-list-total-size {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.file-list-output-note {
+  color: var(--color-accent);
+  margin-left: auto;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   6. FooterInput — 3-column row
+   ========================================================================== */
+
+.footer-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--color-bg-card);
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.footer-input-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.footer-input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer-input-group:nth-child(2) {
+  flex: 0.8; /* Class field slightly narrower */
+}
+
+.footer-input-group:nth-child(3) {
+  flex: 0.5; /* Roll no field smallest */
+}
+
+.footer-input-hint {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.footer-input-field {
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: 0.88rem;
+  transition: all var(--transition-base);
+  outline: none;
+  font-family: inherit;
+}
+
+.footer-input-field::placeholder {
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+}
+
+.footer-input-field:focus {
+  border-color: var(--color-border-focus);
+  background: var(--color-bg-card);
+  box-shadow: 0 0 0 2px rgba(107, 80, 56, 0.08);
+}
+
+.footer-input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footer-input-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-input-char-count {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   7. StatusMessage
+   ========================================================================== */
+
+.status-message-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.status-uploading,
+.status-processing {
+  background: var(--color-accent-bg);
+  border: 1px solid #d8cfc4;
+  color: var(--color-accent);
+}
+
+.status-done {
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: var(--color-success);
+}
+
+.status-error {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error);
+}
+
+.status-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.status-text {
+  font-weight: 600;
+}
+
+.status-errors-details {
+  font-size: 0.78rem;
+}
+
+.status-errors-summary {
+  cursor: pointer;
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+.status-errors-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.status-error-item {
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+}
+
+.status-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   8. DownloadPanel
+   ========================================================================== */
+
+.download-panel {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.download-panel-header {
+  padding: 1rem 1.25rem 0.75rem;
+}
+
+.download-panel-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.download-panel-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.1rem;
+}
+
+.download-panel-zip-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0.25rem 1.25rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.download-panel-zip-button:hover {
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.download-panel-zip-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.download-panel-zip-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.download-panel-zip-label {
+  font-weight: 600;
+}
+
+.download-panel-zip-size {
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
+.download-panel-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+}
+
+.download-panel-divider::before,
+.download-panel-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-light);
+}
+
+.download-panel-file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.download-panel-file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 1.25rem;
+  border-top: 1px solid var(--color-border-light);
+  transition: background var(--transition-fast);
+}
+
+.download-panel-file-item:hover {
+  background: var(--color-bg-warm);
+}
+
+.download-panel-file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.download-panel-file-icon {
+  flex-shrink: 0;
+}
+
+.download-panel-file-name {
+  font-size: 0.82rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.download-panel-file-size {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-right: 0.5rem;
+}
+
+.download-panel-file-download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-bg);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.download-panel-file-download-button:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.download-panel-file-download-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.download-panel-errors {
+  padding: 0.8rem 1.25rem;
+  background: var(--color-warning-bg);
+  border-top: 1px solid #e8d4a8;
+}
+
+.download-panel-errors-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-warning);
+  margin-bottom: 0.3rem;
+}
+
+.download-panel-errors-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.download-panel-error-item {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  padding: 0.1rem 0;
+}
+
+/* ==========================================================================
+   9. Responsive
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 1rem 0.75rem 3rem;
+  }
+
+  .page-logo {
+    font-size: 1.5rem;
+  }
+
+  .footer-input-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-input-group:nth-child(2),
+  .footer-input-group:nth-child(3) {
+    flex: 1;
+  }
+
+  .file-list-item-name,
+  .download-panel-file-name {
+    max-width: 140px;
+  }
+}
