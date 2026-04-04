@@ -1,5 +1,9 @@
 # Lazy Footers
 
+In my college, borrowed practical PDFs/ docs always had someone else's name in the footer. Changing it manually on my phone before taking the print took 5 to 6 minutes every single time.
+
+So I built Lazy Footers, a tool that updates footers across bulk PDF and Word files in under a second.
+
 Upload PDF or DOCX files, type a footer, and download them with the footer applied.  
 Instant processing. No external software required. Works on mobile.
 
