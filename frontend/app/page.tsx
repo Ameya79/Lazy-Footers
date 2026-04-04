@@ -7,9 +7,10 @@
 
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { AppStatus, ProcessResponse, SelectedFile } from "@/types";
 import { processFiles } from "@/lib/api";
+import { API_BASE_URL } from "@/lib/constants";
 import FileUploader from "@/components/FileUploader";
 import FileList from "@/components/FileList";
 import FooterInput from "@/components/FooterInput";
@@ -25,6 +26,11 @@ export default function HomePage() {
   const [status, setStatus] = useState<AppStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [processResult, setProcessResult] = useState<ProcessResponse | null>(null);
+
+  /* ----- Wake up backend (Render free tier sleeps after 15 min) ----- */
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/health`).catch(() => {});
+  }, []);
 
   /* ----- File callbacks ----- */
   const handleFilesAdded = useCallback((newFiles: SelectedFile[]) => {
